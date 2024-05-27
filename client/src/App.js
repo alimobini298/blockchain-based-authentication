@@ -31,8 +31,10 @@ class App extends Component {
     try {
       const web3 = await web3Connection();
       const contract = await Contract(web3);
-      const accounts = await web3.eth.getAccounts();
-
+      const accounts = await web3.eth.requestAccounts();
+      console.log("Accounts =", accounts);
+      web3.eth.requestAccounts(console.log);
+      //web3.eth.requestAccounts(console.log);
       this.setState({ web3, contract, account: accounts[0] }, this.start);
     } catch (error) {
       alert(
@@ -41,11 +43,11 @@ class App extends Component {
       console.error(error);
     }
 
-    await this.getAccount();
+    await this.requestAccounts();
   };
 
   start = async () => {
-    await this.getAccount();
+    await this.requestAccounts();
     const { web3, contract, account } = this.state;
 
     console.log("web3 =", web3);
@@ -53,7 +55,7 @@ class App extends Component {
     console.log("Acoount =", account);
   };
 
-  getAccount = async () => {
+  requestAccounts = async () => {
     if (this.state.web3 !== null || this.state.web3 !== undefined) {
       await window.ethereum.on('accountsChanged', async (accounts) => {
         this.setState({

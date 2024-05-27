@@ -17,7 +17,21 @@ module.exports = {
       provider: () => new HDWalletProvider(MNEMONIC, `https://rinkeby.infura.io/v3/${RINKEBY_KEY}`),
       network_id: 4,
       gas: 4500000
-    }
+    },
+    testnet: {
+      provider: () => new HDWalletProvider(MNEMONIC, `https://data-seed-prebsc-2-s3.bnbchain.org:8545`),
+      network_id: 97,
+      confirmations: 10,
+      timeoutBlocks: 200,
+      skipDryRun: true
+    },
+    bsc: {
+      provider: () => new HDWalletProvider(mnemonic, `https://bsc-dataseed1.bnbchain.org`),
+      network_id: 56,
+      confirmations: 10,
+      timeoutBlocks: 200,
+      skipDryRun: true
+    },
   },
   compilers: {
     solc: {
